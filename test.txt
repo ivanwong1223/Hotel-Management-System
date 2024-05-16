@@ -1,0 +1,321 @@
+class bank_acc{
+    private String Name, Account_Number, Account_Type;
+    private double Balance_Amount;
+    
+    public bank_acc(String Name, String Account_Number, String Account_Type, double Balance_Amount){
+        this.Name = Name;
+        this.Account_Number = Account_Number;
+        this.Account_Type = Account_Type;
+        this.Balance_Amount = Balance_Amount;
+    }
+    
+    public void deposit_ammount(double amount){
+        if (amount > 0){
+            Balance_Amount += amount; //amount add to the balance
+        }
+        else{
+            System.out.println("Invalid deposit amount!");
+        }
+    }
+    public void withdraw_ammount(double amount){
+        if (amount <= Balance_Amount){
+            Balance_Amount -= amount; //amount minus to the balance
+        }
+        else {
+            System.out.println("Invalid withdraw amount!");
+        }
+    }
+    public void Display_Info(){
+        System.out.println("Name: "+Name+ "\nBalance: RM"+Balance_Amount);
+    }
+}
+
+public class question2 {
+    public static void main(String args[]) {
+        String name;
+        Scanner input = new Scanner(System.in);
+        System.out.print("Please enter your name: ");
+        name = input.nextLine();
+        
+        bank_acc obj1 = new bank_acc(name, "100,000", "Saving Account", 500.000);
+        System.out.println("Initial Record ");
+        obj1.Display_Info();
+        obj1.deposit_ammount(2000);
+        System.out.println("After deposit ");
+        obj1.Display_Info();
+        obj1.withdraw_ammount(300);
+        System.out.println("After withdrawal ");
+        obj1.Display_Info();
+    }
+}
+
+---------------------------------------------------------------------------------------------------
+
+class bank {
+    private double Account_Balance;
+    
+    
+    public bank(double Initial_Balance){
+        if (Initial_Balance >= 0.0){
+            Account_Balance = Initial_Balance;
+        }
+        else{
+            System.out.println("Invalid initial balance!");
+        }
+    }
+    
+    public void deposit_ammount(double ammount){
+        if (ammount > 0){
+            Account_Balance += ammount;
+        }
+        else{
+            System.out.println("Invalid deposit ammount!");
+        }
+    }
+    
+    public void withdraw_ammount(double ammount){
+        if (ammount <= Account_Balance){
+            Account_Balance -= ammount;
+        }
+        else {
+            System.out.println("Invalid withdraw ammount!");
+        }
+    }
+    
+    public double getBalance(){
+        return Account_Balance;
+    }
+    
+    public void setBalance(double new_balance){
+        Account_Balance = new_balance;
+    }
+}
+
+class SavingAccount extends bank{
+    private double interest_rate;
+    
+    public SavingAccount(double interest_rate, double Initial_Balance){
+        super(Initial_Balance);
+        this.interest_rate = interest_rate;
+    }
+    
+    public double calculateInterestRate(){
+        return interest_rate/100 *getBalance();
+    }
+}
+
+public class question1 {
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Please enter your balance: ");
+        double balance = input.nextDouble();
+        bank obj1 = new bank (balance);
+        System.out.println("Account balance: " + obj1.getBalance());
+        
+        
+        System.out.print("Please enter ammount to deposit: ");
+        double deposit = input.nextDouble();
+        obj1.deposit_ammount(deposit);
+        System.out.println("The account balance after deposit is: " + obj1.getBalance());
+        
+        
+        System.out.print("Please enter amount to withdraw: ");
+        double withdraw = input.nextDouble();
+        obj1.withdraw_ammount(withdraw);
+        System.out.println("Account balance after withdraw : "+obj1.getBalance());
+        
+        
+        System.out.print("Enter you savings account: ");
+        double savAmount = input.nextDouble();
+        System.out.print("Enter interest rate: ");
+        double interestR = input.nextDouble();
+        SavingAccount savingAccount = new SavingAccount(savAmount,interestR);
+        System.out.println("Saving account balance: " + savingAccount.getBalance());
+        
+        
+        double interest = savingAccount.calculateInterestRate();
+        System.out.println("The interest of the saving is: "+ interest);
+        
+        savingAccount.deposit_ammount(interest);
+        System.out.println("Saving account balance after adding interest: " + savingAccount.getBalance());
+    }
+}
+
+1. get function 在 tutorial lab 7 是拿来做什么的
+2. 为什么有了private 那些 还要 get function
+3. 什么情况下要写return function ，因为老师的registration没有用到return 的东西
+4. 在line 25， 这些里面parameter的东西的意思是不是跟着顺序来input去我的text file, 里面的东西我们是不是称呼叫object
+5. 然后是不是如果有parameter的话， 里面的东西，每个都要有this.(objectname) = parametername 和 get(objectname){
+return(objectname)
+}
+6. 然后这个this. 是有什么用的叻 是不是只是declare那个名字罢了，我把它放一样名字是不是就可以了
+7.在line 56, 这个set(objectname) 是有什么用的叻， 因为它跟get(objectname)一样的code，然后下面也没用到set(objectname)
+8.为什么一些要用到private double/int/String，但是那个老师的registration没有
+
+
+public class question1 {
+    
+    private double annualInterestRate;
+    private int numberOfYears;
+    private double loanAmount;
+    private String loanDate;
+    
+    public question1(double annualInterestRate, int numberofYears, double loanAmount, String loanDate){ //constructor
+        this.annualInterestRate = annualInterestRate;
+        this.numberOfYears = numberofYears;
+        this.loanAmount = loanAmount;
+        this.loanDate = loanDate;
+    }
+    
+    public double getAnnualInterestRate(){
+        return annualInterestRate;
+    }
+    
+    public int getNumberOfYears(){
+        return numberOfYears;
+    }
+    
+    public double getLoanAmmount(){
+        return loanAmount;
+    }
+    
+    public String getLoanDate(){
+        return loanDate;
+    }
+    
+    public void setAnnualInterestRate(double annualInterestRate){
+        this.annualInterestRate = annualInterestRate;
+    }
+    
+    public void setNumberOfYears(int numberOfYears){
+        this.numberOfYears = numberOfYears;
+    }
+    
+    public void setLoanAmount(double loanAmount){
+        this.loanAmount = loanAmount;
+    }
+    
+    public void setLoanDate(String loanDate){
+        this.loanDate = loanDate;
+    }
+    
+    public double getMonthlyPayment(){
+        return (getTotalPayment()/numberOfYears/12);
+    }
+    
+    public double getTotalPayment(){
+        double interestPerYear = loanAmount * annualInterestRate;
+        return loanAmount + (interestPerYear * numberOfYears);
+    }
+    
+    public static void main(String[] args) throws IOException {
+        Scanner input = new Scanner(System.in);
+        int choice = 0;
+        
+        
+            System.out.println("Main Menu");
+            System.out.println("1.Write to file");
+            System.out.println("2.Read from file");
+            System.out.println("3.Exit");
+            System.out.print("Select your choice: ");
+            choice = input.nextInt();
+            
+            switch(choice){
+                case 1:
+                    System.out.print("Enter annual interest rate: ");
+                    double annualInterestRate = input.nextDouble();
+                    System.out.print("Enter number of years: ");
+                    int numberOfYears = input.nextInt();
+                    System.out.print("Enter loan amount: ");
+                    double loanAmount = input.nextDouble();
+                    input.nextLine();
+                    System.out.print("Enter loan date: ");
+                    String loanDate = input.nextLine();
+                    
+                    question1 loan = new question1(annualInterestRate, numberOfYears, loanAmount, loanDate);
+                    
+                    try{
+                        FileWriter fileWriter = new FileWriter(new File("loan.txt"),true);
+                        PrintWriter printWriter = new PrintWriter(fileWriter);
+                        
+                        printWriter.println(loan.getAnnualInterestRate() + "," + loan.getNumberOfYears()+ ","+ loan.getLoanAmmount()+ ","+ loan.getLoanDate());
+                        
+                        printWriter.close();
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    break;
+                    
+                case 2:
+                    double totalLoanAmount = 0;
+                    
+                    try{
+                        File file = new File("loan.txt");
+                        Scanner scan = new Scanner(file);
+                        
+                        while(scan.hasNextLine()){
+                            String[] loanData = scan.nextLine().split(",");
+                            question1 currentLoan = new question1(Double.parseDouble(loanData[0]), Integer.parseInt(loanData[1]),Double.parseDouble(loanData[2]), loanData[3]);
+                            totalLoanAmount += currentLoan.getLoanAmmount();
+                            
+                            System.out.println("Annual Interest Rate: "+currentLoan.getAnnualInterestRate());
+                            System.out.println("Number of Years: "+currentLoan.getNumberOfYears());
+                            System.out.println("Loan Amount: "+currentLoan.getLoanAmmount());
+                            System.out.println("Loan Date: " + currentLoan.getLoanDate());
+                            System.out.println("");
+                        }
+                        
+                        scan.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    
+                    System.out.println("Total loan amount: "+ totalLoanAmount);
+                    break;
+            }
+        }
+        
+    }     
+
+
+ 
+
+public void display() {
+    try (BufferedReader br = new BufferedReader(new FileReader("booking.txt"))) {
+        String line;
+        LocalDate startDate = null;
+        LocalDate endDate = null;
+        int latestLine = -1;
+        int lineNum = 0;
+        String cusName = "";
+
+        while ((line = br.readLine()) != null) {
+            String[] rowData = line.split(", ");
+            LocalDate checkInDate = LocalDate.parse(rowData[4], DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+            LocalDate checkOutDate = LocalDate.parse(rowData[5], DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+            lineNum++;
+
+            if (startDate == null || endDate == null || lineNum > latestLine) {
+                startDate = checkInDate;
+                endDate = checkOutDate;
+                latestLine = lineNum;
+                cusName = rowData[0];
+            }
+        }
+
+        long totalDays = ChronoUnit.DAYS.between(startDate, endDate);
+
+        cusNameLabel.setText("Name:      " + cusName);
+        roomDays.setText("Days of stays:      " + totalDays);
+        calculator_payment calc = new calculator_payment(String.valueOf(totalDays), 0.0, 0.0, 0.0);
+        double roomFeesValue = calc.calculateRoomFees(totalDays);
+        double serviceTaxAmount = 0.1 * totalDays; // Calculate service tax amount
+        roomFees.setText("Room Charges:     RM " + String.format("%.2f", roomFeesValue));
+        taxAmount.setText("Service Tax:     RM " + String.format("%.2f", serviceTaxAmount)); // Display service tax amount
+        double totalCharges = roomFeesValue + serviceTaxAmount; // Calculate total charges
+        getTotalCharges().setText("Total Charges:     RM " + String.format("%.2f", totalCharges)); // Display total charges
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}

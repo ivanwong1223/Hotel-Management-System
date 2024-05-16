@@ -1,0 +1,6 @@
+Rose, 0192036443, jisoo@gmail.com, 094332-23-2132, 11-Jan-2023, 16-Jan-2023, B03, RM2525.00
+Joshua Wong, 0132134002, ivan@gmail.com, 021223-12-0393, 01-Jan-2023, 06-Jan-2023, A01, RM1975.00
+Jennie, 0123002912, jen@gmail.com, 021332-13-1232, 03-Apr-2023, 07-Apr-2023, B07, RM2680.00
+John Paulose, 0192036443, jisoo@gmail.com, 094332-23-2132, 04-Jan-2023, 10-Jan-2023, A06, RM3030.00
+Alex Wong, 01110292929, alex@gmail.com, 032221-23-3222, 03-Jan-2023, 06-Jan-2023, B04, RM1515.00
+Ivan Wong, 01110822898, ivan@gmail.com, 021223-14-0493, 03-Jan-2023, 16-Jan-2023, B01, RM5850.00

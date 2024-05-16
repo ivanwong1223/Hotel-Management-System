@@ -1,0 +1,157 @@
+this is my backend code of nxtBtn, i have already write the 
+private void nxtBtnActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        String ta;
+        
+        ta = totalAmount.getText();
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("booking.txt"));
+            String lastLine = lines.get(lines.size() - 1);
+            String updatedLastLine = lastLine + ", " + ta;
+            lines.set(lines.size() - 1, updatedLastLine);
+            Files.write(Paths.get("booking.txt"), lines);
+            JOptionPane.showMessageDialog(null,"Customer Payment Has Been Updated.","Success",JOptionPane.INFORMATION_MESSAGE);
+            currentBookings a = new currentBookings();
+            a.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+
+this is my backend code of nextBtn, user is input their details in its own JTextField and JComboBox. it links to Customer class file
+private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        String name = cName.getText();
+        String contact = cContact.getText();
+        String email = cEmail.getText();
+        String ic = cIC.getText();
+        String checkinDate = String.valueOf(cmbDate.getSelectedItem());
+        String checkoutDate = String.valueOf(cmbDated.getSelectedItem());
+        String checkinMonth = String.valueOf(cmbMonth.getSelectedItem());
+        String checkoutMonth = String.valueOf(cmbMonthed.getSelectedItem());
+        String year = String.valueOf(cmbYear.getSelectedItem());
+        String roomSelected = String.valueOf(rSelection.getSelectedItem());
+        
+        Customer obj1 = new Customer(name, contact, email, ic, checkinDate, checkoutDate, checkinMonth, checkoutMonth, year, roomSelected);
+
+this is my super class Customer, it link to my backend code of the nextBtn. this constructor receive those booking details from user
+public class Customer {
+    private String name;
+    private String contact;
+    private String email;
+    private String ic;
+    private String checkinDate;
+    private String checkoutDate;
+    private String checkinMonth;
+    private String checkoutMonth;
+    private String year;
+    private String roomSelected;
+    
+    public Customer (String name, String contact, String email, String ic, String checkinDate, String checkoutDate, String checkinMonth, String checkoutMonth, String year, String roomSelected) {
+        this.name = name;
+        this.contact = contact;
+        this.email = email;
+        this.ic = ic;
+        this.checkinDate = checkinDate;
+        this.checkoutDate = checkoutDate;
+        this.checkinMonth = checkinMonth;
+        this.checkoutMonth = checkoutMonth;
+        this.year = year;
+        this.roomSelected = roomSelected;
+    }
+    
+    
+    public String getName() {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        if (!name.matches("[a-zA-Z]+")) {
+            throw new IllegalArgumentException("Name must contain only letters");
+        }
+        return name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getIc() {
+        return ic;
+    }
+
+    public String getCheckinDate() {
+        return checkinDate;
+    }
+
+    public String getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public String getCheckinMonth() {
+        return checkinMonth;
+    }
+
+    public String getCheckoutMonth() {
+        return checkoutMonth;
+    }
+
+    public String getYear() {
+        return year;
+    }
+    
+    public String getRoomSelection(){
+        return roomSelected;
+    }
+    
+}
+
+this is the sub class bookingDate, it inherits to the Customer class.
+public class bookingDate extends Customer {
+    private String dobin;
+    private String dobout;
+    
+    
+    public bookingDate(String name, String contact, String email, String ic, String checkinDate, String checkoutDate, String checkinMonth, String checkoutMonth, String year, String dobin, String dobout, String roomSelected){
+        super(name, contact, email, ic, checkinDate, checkoutDate, checkinMonth, checkoutMonth, year, roomSelected);
+        this.dobin = dobin;
+        this.dobout = dobout;
+    }
+    
+    public String getDobin() {
+        this.dobin = getCheckinDate() + "-" + getCheckinMonth() + "-" + getYear();
+        return dobin;
+    }
+
+    public String getDobout() {
+        this.dobout = getCheckoutDate() + "-" + getCheckoutMonth() + "-" + getYear();
+        return dobout;
+    }
+    
+}
+
+this is my main program of write the following details to my booking text file
+
+    try{
+        FileWriter fw = new FileWriter("booking.txt", true);
+        PrintWriter outputFile = new PrintWriter(fw);
+        outputFile.print(booking.getName() + ", ");
+        outputFile.print(booking.getContact() + ", ");
+        outputFile.print(booking.getEmail() + ", ");
+        outputFile.print(booking.getIc() + ", ");
+        outputFile.print(booking.getDobin() + ", ");
+        outputFile.print(booking.getDobout() + ", ");
+        outputFile.print(booking.getRoomSelection());
+
+        outputFile.println();
+        outputFile.close();
+
+        return "Success";
+    }
+    catch (Exception ex)
+    {
+        return ex.toString();
+    }
